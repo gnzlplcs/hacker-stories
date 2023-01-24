@@ -21,15 +21,13 @@ const list = [
   },
 ];
 
-const App = () => {
-  return (
-    <div>
-      <h1>My Hacker Stories</h1>
-      <Search />
-      <hr />
-      <List list={list} />
-    </div>
-  );
-};
+const App = () => (
+  <div>
+    <h1>My Hacker Stories</h1>
+    <Search />
+    <hr />
+    <List list={list} />
+  </div>
+);
 
 export default App;
