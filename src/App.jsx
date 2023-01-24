@@ -2,7 +2,7 @@ import React from "react";
 import Search from "./Search";
 import List from "./List";
 
-const list = [
+const stories = [
   {
     title: "React",
     url: "https://reactjs.org/",
@@ -26,7 +26,7 @@ const App = () => (
     <h1>My Hacker Stories</h1>
     <Search />
     <hr />
-    <List list={list} />
+    <List list={stories} />
   </div>
 );
 
