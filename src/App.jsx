@@ -1,4 +1,6 @@
 import React from "react";
+import Search from "./Search";
+import List from "./List";
 
 const list = [
   {
@@ -23,26 +25,9 @@ const App = () => {
   return (
     <div>
       <h1>My Hacker Stories</h1>
-
-      <label htmlFor="search">Search: </label>
-      <input id="search" type="text" />
-
+      <Search />
       <hr />
-
-      <ul>
-        {list.map((item) => {
-          return (
-            <li key={item.objectID}>
-              <span>
-                <a href={item.url}>{item.title}</a>,{" "}
-              </span>
-              <span>{item.author}, </span>
-              <span>comments: {item.num_comments}, </span>
-              <span>points: {item.points}</span>
-            </li>
-          );
-        })}
-      </ul>
+      <List list={list} />
     </div>
   );
 };
