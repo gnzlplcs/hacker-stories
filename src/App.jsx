@@ -21,13 +21,17 @@ const stories = [
   },
 ];
 
-const App = () => (
-  <div>
-    <h1>My Hacker Stories</h1>
-    <Search />
-    <hr />
-    <List list={stories} />
-  </div>
-);
+const App = () => {
+  console.log("App renders");
+  
+  return (
+    <div>
+      <h1>My Hacker Stories</h1>
+      <Search />
+      <hr />
+      <List list={stories} />
+    </div>
+  );
+};
 
 export default App;
