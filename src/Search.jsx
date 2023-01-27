@@ -1,13 +1,12 @@
 import React, { useState } from "react";
 
-const Search = () => {
+const Search = ({onSearch}) => {
   const [searchTerm, setSearchTerm] = useState("");
 
   const handleChange = (event) => {
     setSearchTerm(event.target.value);
+    onSearch(event)
   };
-
-  console.log("Search renders");
 
   return (
     <div>

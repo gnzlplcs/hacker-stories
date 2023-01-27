@@ -1,7 +1,6 @@
 import React from "react";
 
 const Item = ({ item }) => {
-  console.log("Item renders");
   return (
     <li>
       <span>
