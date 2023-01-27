@@ -4,7 +4,12 @@ const Search = ({ search }) => {
   return (
     <div>
       <label htmlFor="search">Search: </label>
-      <input id="search" type="text" onChange={search.onSearch} />
+      <input
+        id="search"
+        type="text"
+        onChange={search.onSearch}
+        value={search.term}
+      />
       <p>
         Searching for <strong>{search.term}</strong>
       </p>
