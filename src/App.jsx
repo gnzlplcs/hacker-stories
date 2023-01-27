@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import Search from "./Search";
 import List from "./List";
 
@@ -22,16 +22,27 @@ const stories = [
 ];
 
 const App = () => {
+  const [searchTerm, setSearchTerm] = useState("");
+
   const handleSearch = (event) => {
-    console.log(event.target.value);
+    setSearchTerm(event.target.value);
+  };
+
+  const searchedStories = stories.filter((story) =>
+    story.title.toLocaleLowerCase().includes(searchTerm.toLowerCase())
+  );
+
+  const manageSearch = {
+    onSearch: handleSearch,
+    term: searchTerm,
   };
 
   return (
     <div>
       <h1>My Hacker Stories</h1>
-      <Search onSearch={handleSearch} />
+      <Search search={manageSearch} />
       <hr />
-      <List list={stories} />
+      <List list={searchedStories} />
     </div>
   );
 };
