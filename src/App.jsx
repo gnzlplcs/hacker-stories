@@ -32,15 +32,10 @@ const App = () => {
     story.title.toLocaleLowerCase().includes(searchTerm.toLowerCase())
   );
 
-  const manageSearch = {
-    onSearch: handleSearch,
-    term: searchTerm,
-  };
-
   return (
     <div>
       <h1>My Hacker Stories</h1>
-      <Search search={manageSearch} />
+      <Search search={searchTerm} onSearch={handleSearch}/>
       <hr />
       <List list={searchedStories} />
     </div>
