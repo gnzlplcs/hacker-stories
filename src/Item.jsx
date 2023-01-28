@@ -1,14 +1,22 @@
 import React from "react";
 
-const Item = ({ url, title, author, num_comments, points }) => {
+const Item = ({ item, onRemoveItem}) => {
+  const handleRemoveItem = () => {
+    onRemoveItem(item)
+  }
+
   return (
     <li>
       <span>
-        <a href={url}>{title}</a>,&nbsp;
+        <a href={item.url}>{item.title}</a>,&nbsp;
       </span>
-      <span>{author},&nbsp;</span>
-      <span>comments: {num_comments},&nbsp;</span>
-      <span>points: {points}</span>
+      <span>{item.author},&nbsp;</span>
+      <span>comments: {item.num_comments},&nbsp;</span>
+      <span>points: {item.points}</span>&nbsp;
+      <span>
+      {/* another option onClick={() => onRemoveItem(item)} */}
+        <button type="button" onClick={handleRemoveItem}>Dismiss</button>
+      </span>
     </li>
   );
 };

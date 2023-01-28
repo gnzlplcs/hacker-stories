@@ -1,9 +1,9 @@
-import React from "react";
+import React, { useState } from "react";
 import InputWithLabel from "./InputWithLabel";
 import List from "./List";
 import useStorageState from "./useStorageState";
 
-const stories = [
+const initialStories = [
   {
     title: "React",
     url: "https://reactjs.org/",
@@ -25,8 +25,17 @@ const stories = [
 const App = () => {
   const [searchTerm, setSearchTerm] = useStorageState("search", "React");
 
+  const [stories, setStories] = useState(initialStories);
+
   const handleSearch = (event) => {
     setSearchTerm(event.target.value);
+  };
+
+  const handleRemoveStory = (item) => {
+    const newStories = stories.filter(
+      (story) => item.objectID !== story.objectID
+    );
+    setStories(newStories);
   };
 
   const searchedStories = stories.filter((story) =>
@@ -36,7 +45,6 @@ const App = () => {
   return (
     <>
       <h1>My Hacker Stories</h1>
-
       <InputWithLabel
         id="search"
         value={searchTerm}
@@ -45,9 +53,8 @@ const App = () => {
       >
         <strong>Search:</strong>
       </InputWithLabel>
-
       <hr />
-      <List list={searchedStories} />
+      <List list={searchedStories} onRemoveItem={handleRemoveStory} />
     </>
   );
 };
