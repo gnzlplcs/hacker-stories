@@ -1,5 +1,5 @@
 import React from "react";
-import Search from "./Search";
+import InputWithLabel from "./InputWithLabel";
 import List from "./List";
 import useStorageState from "./useStorageState";
 
@@ -36,7 +36,12 @@ const App = () => {
   return (
     <>
       <h1>My Hacker Stories</h1>
-      <Search search={searchTerm} onSearch={handleSearch} />
+      <InputWithLabel
+        id="search"
+        label="Search"
+        value={searchTerm}
+        onInputChange={handleSearch}
+      />
       <hr />
       <List list={searchedStories} />
     </>
