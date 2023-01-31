@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useReducer, useState } from "react";
 import InputWithLabel from "./InputWithLabel";
 import List from "./List";
 import useStorageState from "./useStorageState";
@@ -20,6 +20,14 @@ const initialStories = [
     points: 5,
     objectID: 1,
   },
+  {
+    title: "Eloquent JavaScript",
+    url: "https://eloquentjavascript.net/index.html",
+    author: "Marijn Haverbeke",
+    num_comments: 4,
+    points: 5,
+    objectID: 3,
+  },
 ];
 
 const getAsyncStories = () =>
@@ -29,9 +37,22 @@ const getAsyncStories = () =>
     }, 2000)
   );
 
+const storiesReducer = (state, action) => {
+  switch (action.type) {
+    case "SET_STORIES":
+      return action.payload;
+    case "REMOVE_STORY":
+      return state.filter(
+        (story) => action.payload.objectID !== story.objectID
+      );
+    default:
+      throw new Error();
+  }
+};
+
 const App = () => {
   const [searchTerm, setSearchTerm] = useStorageState("search", "React");
-  const [stories, setStories] = useState([]);
+  const [stories, dispatchStories] = useReducer(storiesReducer, []);
   const [isLoading, setIsLoading] = useState(false);
   const [isError, setIsError] = useState(false);
 
@@ -40,7 +61,10 @@ const App = () => {
 
     getAsyncStories()
       .then((result) => {
-        setStories(result.data.stories);
+        dispatchStories({
+          type: "SET_STORIES",
+          payload: result.data.stories,
+        });
         setIsLoading(false);
       })
       .catch(() => setIsError(true));
@@ -51,10 +75,10 @@ const App = () => {
   };
 
   const handleRemoveStory = (item) => {
-    const newStories = stories.filter(
-      (story) => item.objectID !== story.objectID
-    );
-    setStories(newStories);
+    dispatchStories({
+      type: "REMOVE_STORY",
+      payload: item,
+    });
   };
 
   const searchedStories = stories.filter((story) =>
