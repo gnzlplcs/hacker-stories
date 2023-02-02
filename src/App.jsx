@@ -3,6 +3,8 @@ import InputWithLabel from "./InputWithLabel";
 import List from "./List";
 import useStorageState from "./useStorageState";
 
+const API_ENDPOINT = "https://hn.algolia.com/api/v1/search?query=";
+
 const initialStories = [
   {
     title: "React",
@@ -84,11 +86,12 @@ const App = () => {
       type: "STORIES_FETCH_INIT",
     });
 
-    getAsyncStories()
+    fetch(`${API_ENDPOINT}react`)
+      .then((response) => response.json())
       .then((result) => {
         dispatchStories({
           type: "STORIES_FETCH_SUCCESS",
-          payload: result.data.stories,
+          payload: result.hits,
         });
       })
       .catch(() =>
