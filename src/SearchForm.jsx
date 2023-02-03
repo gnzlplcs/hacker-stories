@@ -1,7 +1,7 @@
 import React from "react";
 import InputWithLabel from "./InputWithLabel";
 
-const SearchForm = ({ searchTerm, onSearchInput, onSearchSubmit }) => {
+const SearchForm = ({ searchTerm, onSearchInput, onSearchSubmit }) => (
   <form onSubmit={onSearchSubmit}>
     <InputWithLabel
       id="search"
@@ -15,7 +15,7 @@ const SearchForm = ({ searchTerm, onSearchInput, onSearchSubmit }) => {
     <button type="submit" disabled={!searchTerm}>
       Submit
     </button>
-  </form>;
-};
+  </form>
+);
 
 export default SearchForm;
