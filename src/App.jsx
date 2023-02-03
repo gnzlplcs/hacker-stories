@@ -1,44 +1,10 @@
 import React, { useCallback, useEffect, useReducer, useState } from "react";
 import axios from "axios";
-import InputWithLabel from "./InputWithLabel";
 import List from "./List";
 import useStorageState from "./useStorageState";
+import SearchForm from "./SearchForm";
 
 const API_ENDPOINT = "https://hn.algolia.com/api/v1/search?query=";
-
-const initialStories = [
-  {
-    title: "React",
-    url: "https://reactjs.org/",
-    author: "Jordan Walke",
-    num_comments: 3,
-    points: 4,
-    objectID: 0,
-  },
-  {
-    title: "Redux",
-    url: "https://redux.js.org/",
-    author: "Dan Abramov, Andrew Clark",
-    num_comments: 2,
-    points: 5,
-    objectID: 1,
-  },
-  {
-    title: "Eloquent JavaScript",
-    url: "https://eloquentjavascript.net/index.html",
-    author: "Marijn Haverbeke",
-    num_comments: 4,
-    points: 5,
-    objectID: 3,
-  },
-];
-
-const getAsyncStories = () =>
-  new Promise((resolve) =>
-    setTimeout(() => {
-      resolve({ data: { stories: initialStories } });
-    }, 2000)
-  );
 
 const storiesReducer = (state, action) => {
   switch (action.type) {
@@ -111,8 +77,9 @@ const App = () => {
     setSearchTerm(e.target.value);
   };
 
-  const handleSearchSubmit = () => {
+  const handleSearchSubmit = (e) => {
     setUrl(`${API_ENDPOINT}${searchTerm}`);
+    e.preventDefault();
   };
 
   const handleRemoveStory = (item) => {
@@ -125,19 +92,15 @@ const App = () => {
   return (
     <>
       <h1>My Hacker Stories</h1>
-      <InputWithLabel
-        id="search"
-        value={searchTerm}
-        isFocused
-        onInputChange={handleSearchInput}
-      >
-        <strong>Search:</strong>
-      </InputWithLabel>
 
-      <button type="button" disabled={!searchTerm} onClick={handleSearchSubmit}>
-        Submit
-      </button>
+      <SearchForm
+        searchTerm={searchTerm}
+        onSearchInput={handleSearchInput}
+        onSearchSubmit={handleSearchSubmit}
+      />
+
       <hr />
+
       {stories.isError && <p>Something went wrong...</p>}
       {stories.isLoading ? (
         <p>Loading...</p>
