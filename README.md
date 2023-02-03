@@ -62,4 +62,4 @@ code and references for the **Hacker Stories** project, from the Robin Wieruch's
 |   | [What is preventDefault() in React](https://www.robinwieruch.de/react-preventdefault/) |
 
 ---
-_last udpdate: 2023-02-03_
+_last update: 2023-02-03_
