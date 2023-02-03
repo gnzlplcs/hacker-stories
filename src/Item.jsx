@@ -8,7 +8,7 @@ const Item = ({ item, onRemoveItem}) => {
   return (
     <li>
       <span>
-        <a href={item.url}>{item.title}</a>,&nbsp;
+        <a href={item.url} target="_blank">{item.title}</a>,&nbsp;
       </span>
       <span>{item.author},&nbsp;</span>
       <span>comments: {item.num_comments},&nbsp;</span>

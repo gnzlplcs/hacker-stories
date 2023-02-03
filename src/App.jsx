@@ -1,4 +1,4 @@
-import React, { useEffect, useReducer, useState } from "react";
+import React, { useCallback, useEffect, useReducer, useState } from "react";
 import InputWithLabel from "./InputWithLabel";
 import List from "./List";
 import useStorageState from "./useStorageState";
@@ -81,7 +81,7 @@ const App = () => {
     isError: false,
   });
 
-  useEffect(() => {
+  const handleFetchStories = useCallback(() => {
     if (!searchTerm) return;
 
     dispatchStories({
@@ -103,6 +103,10 @@ const App = () => {
       );
   }, [searchTerm]);
 
+  useEffect(() => {
+    handleFetchStories();
+  }, [handleFetchStories]);
+
   const handleSearch = (event) => {
     setSearchTerm(event.target.value);
   };
@@ -113,10 +117,6 @@ const App = () => {
       payload: item,
     });
   };
-
-  const searchedStories = stories.data.filter((story) =>
-    story.title.toLocaleLowerCase().includes(searchTerm.toLowerCase())
-  );
 
   return (
     <>
